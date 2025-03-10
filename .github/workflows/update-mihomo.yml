@@ -112,7 +112,7 @@ jobs:
       - name: Get `mihomo Alpha` version and time
         id: alpha
         run: |
-          alpha_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/mihomo/releases | jq -r '[.[] | select(.tag_name=="Prerelease-Alpha")][0].assets[].name' | head -n 1 | sed 's/.*-\(alpha-[^-]*\)\..*/\1/')
+          alpha_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/mihomo/releases | jq -r '[.[] | select(type=="object" and .tag_name=="Prerelease-Alpha")][0].assets[].name' | sed -n 's/.*-\(alpha-[^-]*\)\..*/\1/p' | head -n 1)
           echo "alpha_version=$alpha_version" >> $GITHUB_OUTPUT
           echo alpha_tags=with_gvisor >> $GITHUB_OUTPUT
           alpha_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/mihomo/releases | jq -r '[.[] | select(.tag_name=="Prerelease-Alpha")][0].created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
