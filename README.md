@@ -23,7 +23,7 @@
 <summary>① 首次导入</summary>
 
 连接 SSH 后执行如下命令：
-```
+```shell
 # mihomo 内核 Meta 版
 curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-armv8.tar.gz | tar -zx -C /tmp/ && crash
 # mihomo 内核 Alpha 版
@@ -41,7 +41,7 @@ curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/dow
 <summary>② 升级导入（ShellCrash -> 9 更新/卸载 -> 2 切换内核文件，内核版本不会刷新）</summary>
 
 连接 SSH 后执行如下命令：
-```
+```shell
 # mihomo 内核 Meta 版
 curl -o $CRASHDIR/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-armv8.tar.gz && $CRASHDIR/start.sh restart
 # mihomo 内核 Alpha 版
@@ -65,7 +65,7 @@ curl -o $CRASHDIR/CrashCore.tar.gz -L https://ghfast.top/https://github.com/Dust
 |zashboard 面板|`zashboard.tar.gz`|<https://board.zash.run.place>|
 
 连接 SSH 后执行如下命令：
-```
+```shell
 curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/Dashboard/metacubexd.tar.gz | tar -zx -C $CRASHDIR/ui/ && $CRASHDIR/start.sh restart
 ```
 - 注：若使用基于 [Chromium 项目](https://www.chromium.org/Home/)开发的浏览器打开网址去访问 Dashboard 面板时，以 [Chrome 浏览器](https://www.google.com/chrome/)为例，需要设置该网址域名“允许显示不安全内容”。方法如下：  
@@ -81,7 +81,7 @@ curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/dow
 <summary>① 安装 AdGuard Home</summary>
 
 连接 SSH 后执行如下命令：
-```
+```shell
 mkdir -p /data/AdGuardHome
 # AdGuard Home Release 版
 curl -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_release_linux_armv8
@@ -96,7 +96,7 @@ chmod +x /data/AdGuardHome/AdGuardHome
 <summary>② 升级 AdGuard Home</summary>
 
 连接 SSH 后执行如下命令：
-```
+```shell
 # AdGuard Home Release 版
 curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_release_linux_armv8
 # AdGuard Home Beta 版
@@ -112,7 +112,7 @@ curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/Dus
 - 1. 留意链接后缀是否与 CPU 架构匹配
 - 2. ShellCrash 安装路径为 */data/ShellCrash*
 
-```
+```shell
 201#curl -o /data/ShellCrash/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-armv8.tar.gz && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新mihomo内核
 202#curl -o /data/ShellCrash/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/sing-box/sing-box-puernya-linux-armv8.tar.gz && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新sing-box_PuerNya版内核
 203#curl -o /data/ShellCrash/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/sing-box/sing-box-release-linux-armv8.tar.gz && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新sing-box内核
