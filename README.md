@@ -3,14 +3,14 @@
 每天凌晨（北京时间 UTC+8）自动构建生成：
 1. [Clash Premium Release 版和 Nightly 版内核](https://github.com/DustinWin/proxy-tools/releases/tag/Clash-Premium)（已停更）
 2. mihomo [Meta 版](https://github.com/MetaCubeX/mihomo/tree/Meta)和 [Alpha 版](https://github.com/MetaCubeX/mihomo/tree/Alpha)内核
-3. sing-box [Release 版](https://github.com/SagerNet/sing-box/tree/main)、[Dev 版](https://github.com/SagerNet/sing-box/tree/dev)和 [PuerNya 版](https://github.com/PuerNya/sing-box/tree/building)（支持[出站提供者](https://sing-boxp.dustinwin.top/zh/configuration/provider/) `outbound_providers`，类似于 mihomo 内核的[代理集合](https://wiki.metacubex.one/config/proxy-providers/) `proxy-providers`）内核
+3. sing-box [Release 版](https://github.com/SagerNet/sing-box/tree/main)、[Dev 版](https://github.com/SagerNet/sing-box/tree/dev)和 [PuerNya 版](https://github.com/PuerNya/sing-box/tree/building)（支持[出站提供者](https://sing-boxp.dustinwin.us.kg/zh/configuration/provider/) `outbound_providers`，类似于 mihomo 内核的[代理集合](https://wiki.metacubex.one/config/proxy-providers/) `proxy-providers`）内核
 4. Dashboard 面板：[yacd 面板](https://github.com/haishanh/yacd)、[Yacd-meta 面板](https://github.com/MetaCubeX/Yacd-meta)、[metacubexd 面板](https://github.com/MetaCubeX/metacubexd)和 [zashboard 面板](https://github.com/Zephyruso/zashboard)
 5. AdGuard Home [Release 版](https://github.com/AdguardTeam/AdGuardHome/tree/beta-v0.107)和 [Beta 版](https://github.com/AdguardTeam/AdGuardHome/tree/beta-v0.108)
 
 **注：**
 - 1. 本教程中的下载链接以 CPU 架构 ARMv8 为例，请注意修改链接后缀
 - 2. 查看 CPU 架构可连接 SSH 后执行命令 `uname -ms`，若执行结果是“linux aarch64”，就是搭载的 ARMv8 架构
-- 3. 对下载源的说明，可[点此](https://proxy-tutorials.dustinwin.top/about/#%E5%AF%B9%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%9A%84%E8%AF%B4%E6%98%8E)了解
+- 3. 对下载源的说明，可[点此](https://proxy-tutorials.dustinwin.us.kg/about/#%E5%AF%B9%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%9A%84%E8%AF%B4%E6%98%8E)了解
 
 # 二、 使用方法
 ## 1. 导入内核（以 [ShellCrash](https://github.com/juewuy/ShellCrash) 导入内核为例）
