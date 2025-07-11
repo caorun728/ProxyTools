@@ -90,6 +90,22 @@ curl -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.com/D
 chmod +x /data/AdGuardHome/AdGuardHome
 /data/AdGuardHome/AdGuardHome -s install
 /data/AdGuardHome/AdGuardHome -s start
+# 将所有发往 53 端口的流量重定向到本地的 5353 端口
+iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 5353
+iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5353
+ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 5353
+ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5353
+# 添加开机启动
+cat <<EOF >> /data/auto_ssh/auto_ssh.sh
+
+sleep 10s
+/data/AdGuardHome/AdGuardHome -s install
+/data/AdGuardHome/AdGuardHome -s start
+iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 5353
+iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5353
+ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 5353
+ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5353
+EOF
 ```
 </details>
 <details>
