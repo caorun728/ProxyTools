@@ -210,7 +210,7 @@ jobs:
             mkdir -p ./tmp-AdGuardHome/compress/
             archs=(amd64 armv5 armv6 armv7 arm64 mips_softfloat mipsle_softfloat)
             new_name=(amd64 armv5 armv6 armv7 armv8 mips_softfloat mipsle_softfloat)
-            for ((i = 0; i < 7; i++)); do
+            for i in "${!archs[@]}"; do
               mv -f "./tmp-AdGuardHome/AdGuardHome_release_linux_${archs[i]}/dist/AdGuardHome_linux_${archs[i]//v/_}/AdGuardHome/AdGuardHome" "./tmp-AdGuardHome/compress/AdGuardHome_release_linux_${new_name[i]}"
               mv -f "./tmp-AdGuardHome/AdGuardHome_beta_linux_${archs[i]}/dist/AdGuardHome_linux_${archs[i]//v/_}/AdGuardHome/AdGuardHome" "./tmp-AdGuardHome/compress/AdGuardHome_beta_linux_${new_name[i]}"
             done
