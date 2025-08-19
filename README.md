@@ -55,7 +55,7 @@ curl -o $CRASHDIR/CrashCore.tar.gz -L https://ghfast.top/https://github.com/Dust
 ```
 </details>
 
-## 2. 安装 Dashboard 面板（以 ShellCrash 安装 metacubexd 面板为例）
+## 2. 安装 Dashboard 面板（以 ShellCrash 安装 zashboard 面板为例）
 **Dashboard 面板对应文件名和网址关系如下表：**
 |面板名称|文件名|网址|
 |-----|-----|-----|
@@ -66,10 +66,10 @@ curl -o $CRASHDIR/CrashCore.tar.gz -L https://ghfast.top/https://github.com/Dust
 
 连接 SSH 后执行如下命令：
 ```shell
-curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/Dashboard/metacubexd.tar.gz | tar -zx -C $CRASHDIR/ui/ && $CRASHDIR/start.sh restart
+curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/Dashboard/zashboard.tar.gz | tar -zx -C $CRASHDIR/ui/ && $CRASHDIR/start.sh restart
 ```
 - 注：若使用基于 [Chromium 项目](https://www.chromium.org/Home/)开发的浏览器打开网址去访问 Dashboard 面板时，以 [Chrome 浏览器](https://www.google.com/chrome/)为例，需要设置该网址域名“允许显示不安全内容”。方法如下：  
-进入设置 -> 隐私和安全 -> 网站设置 -> 更多内容设置 -> 不安全内容（或者地址栏直接打开 chrome://settings/content/insecureContent 进行设置），在“允许显示不安全内容”内添加网址域名如：`metacubex.github.io`
+进入设置 -> 隐私和安全 -> 网站设置 -> 更多内容设置 -> 不安全内容（或者地址栏直接打开 chrome://settings/content/insecureContent 进行设置），在“允许显示不安全内容”内添加网址域名如：`board.zash.run.place`
 
 ## 3. 安装 AdGuard Home
 **AdGuard Home Linux 版 CPU 架构和链接后缀对应关系如下表：**
@@ -122,7 +122,7 @@ curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/Dus
 </details>
 
 # 三、 扩展（以 ShellCrash 配置定时任务为例）
-可在 ShellCrash 里添加定时更新 mihomo 内核、sing-box 内核、metacubexd 面板和 AdGuard Home 的任务
+可在 ShellCrash 里添加定时更新 mihomo 内核、sing-box 内核、zashboard 面板和 AdGuard Home 的任务
 1. 连接 SSH 后执行 `vi $CRASHDIR/task/task.user`，按一下 Ins 键（Insert 键），粘贴如下内容：  
 注：
 - 1. 留意链接后缀是否与 CPU 架构匹配
@@ -132,7 +132,7 @@ curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/Dus
 201#curl -o /data/ShellCrash/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-armv8.tar.gz && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新mihomo内核
 202#curl -o /data/ShellCrash/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/sing-box/sing-box-puernya-linux-armv8.tar.gz && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新sing-box_PuerNya版内核
 203#curl -o /data/ShellCrash/CrashCore.tar.gz -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/sing-box/sing-box-release-linux-armv8.tar.gz && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新sing-box内核
-204#curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/Dashboard/metacubexd.tar.gz | tar -zx -C $CRASHDIR/ui/ && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新metacubexd面板
+204#curl -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/Dashboard/zashboard.tar.gz | tar -zx -C $CRASHDIR/ui/ && /data/ShellCrash/start.sh restart >/dev/null 2>&1#更新zashboard面板
 205#curl -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_beta_linux_armv8 && /data/AdGuardHome/AdGuardHome -s restart >/dev/null 2>&1#更新AdGuardHome
 ```
 2. 按一下 Esc 键（退出键），输入英文冒号 `:`，继续输入 `wq` 并回车

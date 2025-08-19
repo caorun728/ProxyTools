@@ -24,57 +24,61 @@ jobs:
         run: |
           yacd_version=$(curl -sSL https://api.github.com/repos/haishanh/yacd/releases/latest | jq -r '.tag_name')
           echo "yacd_version=$yacd_version" >> ${GITHUB_ENV}
-          yacd_time=$(curl -sSL https://api.github.com/repos/haishanh/yacd/releases/latest | jq -r '.created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+          yacd_time=$(curl -sSL https://api.github.com/repos/haishanh/yacd/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
           echo "yacd_time=$yacd_time" >> ${GITHUB_ENV}
 
       - name: Get `Yacd-meta` version and time
         run: |
           yacd_meta_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/releases/latest | jq -r '.tag_name')
           echo "yacd_meta_version=$yacd_meta_version" >> ${GITHUB_ENV}
-          yacd_meta_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/releases/latest | jq -r '.created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+          yacd_meta_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
           echo "yacd_meta_time=$yacd_meta_time" >> ${GITHUB_ENV}
 
       - name: Get `metacubexd` version and time
         run: |
           metacubexd_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/releases/latest | jq -r '.tag_name')
           echo "metacubexd_version=$metacubexd_version" >> ${GITHUB_ENV}
-          metacubexd_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/releases/latest | jq -r '.created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+          metacubexd_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
           echo "metacubexd_time=$metacubexd_time" >> ${GITHUB_ENV}
 
       - name: Get `zashboard` version and time
         run: |
           zashboard_version=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/releases/latest | jq -r '.tag_name')
           echo "zashboard_version=$zashboard_version" >> ${GITHUB_ENV}
-          zashboard_time=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/releases/latest | jq -r '.created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+          zashboard_time=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/commits/gh-pages-cdn-fonts | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
           echo "zashboard_time=$zashboard_time" >> ${GITHUB_ENV}
 
       - name: Download and compress `yacd` dashboard
         run: |
           mkdir -p ./Dashboard/ ./tmp/yacd/
-          curl -o ./tmp/yacd/gh-pages.zip -L https://github.com/haishanh/yacd/archive/refs/heads/gh-pages.zip
+          curl -o ./tmp/yacd/gh-pages.zip -L https://github.com/haishanh/yacd/archive/gh-pages.zip
           unzip -o ./tmp/yacd/gh-pages.zip -d ./tmp/yacd/
-          tar -czf ./Dashboard/yacd.tar.gz -C ./tmp/yacd/yacd-gh-pages/ .
+          cd ./tmp/yacd/yacd-gh-pages/
+          tar -czf ../../../Dashboard/yacd.tar.gz *
 
       - name: Download and compress `Yacd-meta` dashboard
         run: |
           mkdir -p ./tmp/Yacd-meta/
-          curl -o ./tmp/Yacd-meta/gh-pages.zip -L https://github.com/MetaCubeX/Yacd-meta/archive/refs/heads/gh-pages.zip
+          curl -o ./tmp/Yacd-meta/gh-pages.zip -L https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip
           unzip -o ./tmp/Yacd-meta/gh-pages.zip -d ./tmp/Yacd-meta/
-          tar -czf ./Dashboard/Yacd-meta.tar.gz -C ./tmp/Yacd-meta/Yacd-meta-gh-pages/ .
+          cd ./tmp/Yacd-meta/Yacd-meta-gh-pages/
+          tar -czf ../../../Dashboard/Yacd-meta.tar.gz *
 
       - name: Download and compress `metacubexd` dashboard
         run: |
           mkdir -p ./tmp/metacubexd/
-          curl -o ./tmp/metacubexd/gh-pages.zip -L https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip
+          curl -o ./tmp/metacubexd/gh-pages.zip -L https://github.com/MetaCubeX/metacubexd/archive/gh-pages.zip
           unzip -o ./tmp/metacubexd/gh-pages.zip -d ./tmp/metacubexd/
-          tar -czf ./Dashboard/metacubexd.tar.gz -C ./tmp/metacubexd/metacubexd-gh-pages/ .
+          cd ./tmp/metacubexd/metacubexd-gh-pages/
+          tar -czf ../../../Dashboard/metacubexd.tar.gz *
 
       - name: Download and compress `zashboard` dashboard
         run: |
           mkdir -p ./tmp/zashboard/
-          curl -o ./tmp/zashboard/gh-pages.zip -L https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip
+          curl -o ./tmp/zashboard/gh-pages.zip -L https://github.com/Zephyruso/zashboard/archive/gh-pages-cdn-fonts.zip
           unzip -o ./tmp/zashboard/gh-pages.zip -d ./tmp/zashboard/
-          tar -czf ./Dashboard/zashboard.tar.gz -C ./tmp/zashboard/dist/ .
+          cd ./tmp/zashboard/zashboard-gh-pages-cdn-fonts/
+          tar -czf ../../../Dashboard/zashboard.tar.gz *
           rm -rf ./tmp*
 
       - name: Release and upload `Dashboard` assets
