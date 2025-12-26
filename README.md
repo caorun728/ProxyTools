@@ -158,4 +158,4 @@ curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/Dus
 
 # 机场推荐
 [Bitz Net](https://new.bnaffloop.com/#/register?code=HT0ALWZq)（仅次于一线机场，推荐打折时购买）  
-75 折优惠码：`2025DOWN75`（有效期至 2025 年 8 月 30 日）
+85 折优惠码：`XMAS2025`（有效期至 2026 年 1 月 2 日 23:59）
