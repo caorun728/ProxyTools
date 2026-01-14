@@ -468,8 +468,13 @@ jobs:
           linux_new_name=(amd64v1 amd64v3 armv5 armv6 armv7 armv8 mips-softfloat mipsle-softfloat mipsle-hardfloat)
           for i in "${!linux_old_name[@]}"; do
             mv -f "./tmp/sing-box-ref1nd-main-linux-${linux_old_name[i]}/sing-box" ./tmp/CrashCore
+            # Compress cores by `tar`
             chmod +x ./tmp/CrashCore
             tar --no-same-owner -czf "./sing-box/sing-box-ref1nd-main-linux-${linux_new_name[i]}.tar.gz" -C ./tmp/ CrashCore
+
+            # Ready for compress cores by `UPX`
+            mv -f ./tmp/CrashCore ./sing-box/sing-box-ref1nd-main-linux-${linux_new_name[i]}.upx
+            chmod +x ./sing-box/sing-box-ref1nd-main-linux-${linux_new_name[i]}.upx
           done
 
           # Windows
@@ -488,8 +493,14 @@ jobs:
           linux_new_name=(amd64v1 amd64v3 armv5 armv6 armv7 armv8 mips-softfloat mipsle-softfloat mipsle-hardfloat)
           for i in "${!linux_old_name[@]}"; do
             mv -f "./tmp/sing-box-ref1nd-dev-linux-${linux_old_name[i]}/sing-box" ./tmp/CrashCore
+
+            # Compress cores by `tar`
             chmod +x ./tmp/CrashCore
             tar --no-same-owner -czf "./sing-box/sing-box-ref1nd-dev-linux-${linux_new_name[i]}.tar.gz" -C ./tmp/ CrashCore
+
+            # Ready for compress cores by `UPX`
+            mv -f ./tmp/CrashCore ./sing-box/sing-box-ref1nd-dev-linux-${linux_new_name[i]}.upx
+            chmod +x ./sing-box/sing-box-ref1nd-dev-linux-${linux_new_name[i]}.upx
           done
 
           # Windows
@@ -508,8 +519,13 @@ jobs:
           linux_new_name=(amd64v1 amd64v3 armv5 armv6 armv7 armv8 mips-softfloat mipsle-softfloat mipsle-hardfloat)
           for i in "${!linux_old_name[@]}"; do
             mv -f "./tmp/sing-box-release-linux-${linux_old_name[i]}/sing-box" ./tmp/CrashCore
+            # Compress cores by `tar`
             chmod +x ./tmp/CrashCore
             tar --no-same-owner -czf "./sing-box/sing-box-release-linux-${linux_new_name[i]}.tar.gz" -C ./tmp/ CrashCore
+
+            # Ready for compress cores by `UPX`
+            mv -f ./tmp/CrashCore ./sing-box/sing-box-release-linux-${linux_new_name[i]}.upx
+            chmod +x ./sing-box/sing-box-release-linux-${linux_new_name[i]}.upx
           done
 
           # Windows
@@ -528,8 +544,13 @@ jobs:
           linux_new_name=(amd64v1 amd64v3 armv5 armv6 armv7 armv8 mips-softfloat mipsle-softfloat mipsle-hardfloat)
           for i in "${!linux_old_name[@]}"; do
             mv -f "./tmp/sing-box-dev-linux-${linux_old_name[i]}/sing-box" ./tmp/CrashCore
+            # Compress cores by `tar`
             chmod +x ./tmp/CrashCore
             tar --no-same-owner -czf "./sing-box/sing-box-dev-linux-${linux_new_name[i]}.tar.gz" -C ./tmp/ CrashCore
+
+            # Ready for compress cores by `UPX`
+            mv -f ./tmp/CrashCore ./sing-box/sing-box-dev-linux-${linux_new_name[i]}.upx
+            chmod +x ./sing-box/sing-box-dev-linux-${linux_new_name[i]}.upx
           done
 
           # Windows
@@ -538,6 +559,13 @@ jobs:
           for i in "${!windows_old_name[@]}"; do
             mv -f "./tmp/sing-box-dev-windows-${windows_old_name[i]}/sing-box.exe" "./sing-box/sing-box-dev-windows-${windows_new_name[i]}.exe"
           done
+
+      - name: Setup `UPX` and compress `sing-box` files
+        if: ${{ env.ref1nd_main_skip_update != 'true' || env.ref1nd_dev_skip_update != 'true' || env.singbox_release_skip_update != 'true' || env.singbox_dev_skip_update != 'true' }}
+        uses: crazy-max/ghaction-upx@v3
+        with:
+          version: latest
+          files: ./sing-box/*.upx
 
       - name: Check if `sing-box` files exist
         id: check

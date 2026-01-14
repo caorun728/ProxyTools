@@ -105,7 +105,7 @@ jobs:
           done
           rm -rf ./tmp-beta*
 
-      - name: Setup `upx` and compress `AdGuard Home Beta` files
+      - name: Setup `UPX` and compress `AdGuard Home Beta` files
         if: ${{ env.AdGuard_Home_Beta_skip_update != 'true' }}
         uses: crazy-max/ghaction-upx@v3
         with:

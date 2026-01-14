@@ -59,8 +59,13 @@ jobs:
           linux_new_name=(amd64v1 amd64v3 armv5 armv6 armv7 armv8 mips-softfloat mipsle-softfloat mipsle-hardfloat)
           for i in "${!linux_old_name[@]}"; do
             curl -L "${download_url}/${meta_version}/mihomo-linux-${linux_old_name[i]}-${meta_version}.gz" | gunzip -c > ./tmp-meta/CrashCore
+            # Compress cores by `tar.gz`
             chmod +x ./tmp-meta/CrashCore
             tar --no-same-owner -czf "./mihomo/mihomo-meta-linux-${linux_new_name[i]}.tar.gz" -C ./tmp-meta/ CrashCore
+
+            # Ready for compress cores by `UPX`
+            mv -f ./tmp-meta/CrashCore ./mihomo/mihomo-meta-linux-${linux_new_name[i]}.upx
+            chmod +x ./mihomo/mihomo-meta-linux-${linux_new_name[i]}.upx
           done
 
           # Windows
@@ -83,8 +88,13 @@ jobs:
           linux_new_name=(amd64v1 amd64v3 armv5 armv6 armv7 armv8 mips-softfloat mipsle-softfloat mipsle-hardfloat)
           for i in "${!linux_old_name[@]}"; do
             curl -L "${download_url}/Prerelease-Alpha/mihomo-linux-${linux_old_name[i]}-${alpha_version}.gz" | gunzip -c > ./tmp-alpha/CrashCore
+            # Compress cores by `tar.gz`
             chmod +x ./tmp-alpha/CrashCore
             tar --no-same-owner -czf "./mihomo/mihomo-alpha-linux-${linux_new_name[i]}.tar.gz" -C ./tmp-alpha/ CrashCore
+
+            # Ready for compress cores by `UPX`
+            mv -f ./tmp-alpha/CrashCore ./mihomo/mihomo-alpha-linux-${linux_new_name[i]}.upx
+            chmod +x ./mihomo/mihomo-alpha-linux-${linux_new_name[i]}.upx
           done
 
           # Windows
@@ -97,6 +107,13 @@ jobs:
             mv -f "./tmp-alpha/alpha_windows_${windows_old_name[j]}/mihomo-windows-${windows_old_name[j]}.exe" "./mihomo/mihomo-alpha-windows-${windows_new_name[j]}.exe"
           done
           rm -rf ./tmp-alpha*
+
+      - name: Setup `UPX` and compress `mihomo` files
+        if: ${{ env.mihomo_Meta_skip_update != 'true' || env.mihomo_Alpha_skip_update != 'true' }}
+        uses: crazy-max/ghaction-upx@v3
+        with:
+          version: latest
+          files: ./mihomo/*.upx
 
       - name: Check if `mihomo` files exist
         run: |
