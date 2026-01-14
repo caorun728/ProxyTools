@@ -19,15 +19,10 @@
 |-----|-----|-----|-----|-----|-----|:---:|-----|-----|-----|
 |**链接后缀**|`amd64v1`|`amd64v3`|`armv5`|`armv6`|`armv7`|`armv8`|`mips-softfloat`|`mipsle-softfloat`|`mipsle-hardfloat`|
 
-**sing-boxr 内核 Linux 版下载链接后缀和 CPU 架构对应关系如下表：**
+**sing-box 内核 Linux 版下载链接后缀和 CPU 架构对应关系如下表：**
 |CPU 架构|AMD64v1|AMD64v3|ARMv5|ARMv6|ARMv7|ARMv8&ARM64&AArch64|mips-softfloat|mipsle-softfloat|mipsle-hardfloat|
 |-----|-----|-----|-----|-----|-----|:---:|-----|-----|-----|
 |**链接后缀**|`amd64v1`|`amd64v3`|`armv5`|`armv6`|`armv7`|`armv8`|`mips-softfloat`|`mipsle-softfloat`|`mipsle-hardfloat`|
-
-**sing-box 内核 Linux 版下载链接后缀和 CPU 架构对应关系如下表：**
-|CPU 架构|AMD64|ARMv5|ARMv6|ARMv7|ARMv8&ARM64&AArch64|mips-softfloat|mipsle-softfloat|mipsle-hardfloat|
-|-----|-----|-----|-----|-----|:---:|-----|-----|-----|
-|**链接后缀**|`amd64`|`armv5`|`armv6`|`armv7`|`armv8`|`mips-softfloat`|`mipsle-softfloat`|`mipsle-hardfloat`|
 
 <details>
 <summary>① 首次导入</summary>
@@ -151,7 +146,7 @@ curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/Dus
 205#curl -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_beta_linux_armv8 >/dev/null 2>&1#更新AdGuardHome
 ```
 2. 按一下 Esc 键（退出键），输入英文冒号 `:`，继续输入 `wq` 并回车
-3. 执行 `crash`，进入 ShellCrash -> 5 配置自动任务 -> 1 添加自动任务，可以看到末尾就有添加的定时任务，输入对应的数字并回车后可设置执行条件
+3. 执行 `sc`，进入 ShellCrash -> 5 配置自动任务 -> 1 添加自动任务，可以看到末尾就有添加的定时任务，输入对应的数字并回车后可设置执行条件
 
 # 给作者加鸡腿
 <img src="https://github.com/user-attachments/assets/e640fdf6-0990-421f-8ec6-2d263b533b89" alt="支付宝" width="30%" />
