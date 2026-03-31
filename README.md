@@ -10,7 +10,7 @@
 **注：**
 - 1. 本教程中的下载链接以 CPU 架构 ARM64 为例，请注意修改链接后缀
 - 2. 查看 CPU 架构可连接 SSH 后执行命令 `uname -ms`，若执行结果是“linux aarch64”，就是搭载的 ARM64 架构
-- 3. 本项目中 mihomo 内核和 sing-box 内核分别采用 `tar.gz` 和 [UPX](https://github.com/upx/upx) 两种压缩方式（以下内容都以 UPX 压缩方式为例）
+- 3. 本项目中 mihomo 内核和 sing-box 内核均采用 [UPX](https://github.com/upx/upx) 压缩方式
 - 4. 对下载源的说明，可[点此](https://proxy-tutorials.dustinwin.us.kg/about/#%E5%AF%B9%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%9A%84%E8%AF%B4%E6%98%8E)了解
 
 # 二、 使用方法
@@ -108,9 +108,9 @@ EOF
 连接 SSH 后执行如下命令：
 ```shell
 # AdGuard Home Release 版
-curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_release_linux_arm64
+curl -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_release_linux_arm64
 # AdGuard Home Beta 版
-curl -o /data/AdGuardHome/AdGuardHome -L https://ghgo.xyz/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_beta_linux_arm64
+curl -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.com/DustinWin/proxy-tools/releases/download/AdGuardHome/AdGuardHome_beta_linux_arm64
 /data/AdGuardHome/AdGuardHome -s restart
 ```
 </details>
