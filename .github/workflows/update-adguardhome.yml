@@ -13,6 +13,9 @@ on:
       - ".github/workflows/update-mihomo.yml"
       - ".github/workflows/update-singbox.yml"
 
+permissions:
+  contents: write
+
 jobs:
   Update:
     runs-on: ubuntu-latest
@@ -58,7 +61,7 @@ jobs:
           linux_archs=(amd64 armv5 armv6 armv7 arm64 mips_softfloat mipsle_softfloat)
           for i in "${!linux_archs[@]}"; do
             mkdir -p "./tmp-release/release_linux_${linux_archs[i]}"
-            curl -L "${download_url}/${release_version}/AdGuardHome_linux_${linux_archs[i]}.tar.gz" | tar -zx -C "./tmp-release/release_linux_${linux_archs[i]}"
+            curl -sS -L "${download_url}/${release_version}/AdGuardHome_linux_${linux_archs[i]}.tar.gz" | tar -zx -C "./tmp-release/release_linux_${linux_archs[i]}"
             mv -f "./tmp-release/release_linux_${linux_archs[i]}/AdGuardHome/AdGuardHome" "./AdGuardHome/AdGuardHome_release_linux_${linux_archs[i]}"
           done
           chmod +x ./AdGuardHome/AdGuardHome_release_linux_*
@@ -67,8 +70,8 @@ jobs:
           windows_archs=(amd64 arm64)
           for j in "${!windows_archs[@]}"; do
             mkdir -p "./tmp-release/release_windows_${windows_archs[j]}/"
-            wget -P "./tmp-release/release_windows_${windows_archs[j]}/" "${download_url}/${release_version}/AdGuardHome_windows_${windows_archs[j]}.zip"
-            unzip -o "./tmp-release/release_windows_${windows_archs[j]}/AdGuardHome_windows_${windows_archs[j]}.zip" -d "./tmp-release/release_windows_${windows_archs[j]}/"
+            wget -q -P "./tmp-release/release_windows_${windows_archs[j]}/" "${download_url}/${release_version}/AdGuardHome_windows_${windows_archs[j]}.zip"
+            unzip -q -o "./tmp-release/release_windows_${windows_archs[j]}/AdGuardHome_windows_${windows_archs[j]}.zip" -d "./tmp-release/release_windows_${windows_archs[j]}/"
             mv -f "./tmp-release/release_windows_${windows_archs[j]}/AdGuardHome/AdGuardHome.exe" "./AdGuardHome/AdGuardHome_release_windows_${windows_archs[j]}.exe"
           done
           rm -rf ./tmp-release*
@@ -81,7 +84,7 @@ jobs:
           linux_archs=(amd64 armv5 armv6 armv7 arm64 mips_softfloat mipsle_softfloat)
           for i in "${!linux_archs[@]}"; do
             mkdir -p "./tmp-beta/beta_linux_${linux_archs[i]}"
-            curl -L "${download_url}/${beta_version}/AdGuardHome_linux_${linux_archs[i]}.tar.gz" | tar -zx -C "./tmp-beta/beta_linux_${linux_archs[i]}"
+            curl -sS -L "${download_url}/${beta_version}/AdGuardHome_linux_${linux_archs[i]}.tar.gz" | tar -zx -C "./tmp-beta/beta_linux_${linux_archs[i]}"
             mv -f "./tmp-beta/beta_linux_${linux_archs[i]}/AdGuardHome/AdGuardHome" "./AdGuardHome/AdGuardHome_beta_linux_${linux_archs[i]}"
           done
           chmod +x ./AdGuardHome/AdGuardHome_beta_linux_*
@@ -90,13 +93,13 @@ jobs:
           windows_archs=(amd64 arm64)
           for j in "${!windows_archs[@]}"; do
             mkdir -p "./tmp-beta/beta_windows_${windows_archs[j]}/"
-            wget -P "./tmp-beta/beta_windows_${windows_archs[j]}/" "${download_url}/${beta_version}/AdGuardHome_windows_${windows_archs[j]}.zip"
-            unzip -o "./tmp-beta/beta_windows_${windows_archs[j]}/AdGuardHome_windows_${windows_archs[j]}.zip" -d "./tmp-beta/beta_windows_${windows_archs[j]}/"
+            wget -q -P "./tmp-beta/beta_windows_${windows_archs[j]}/" "${download_url}/${beta_version}/AdGuardHome_windows_${windows_archs[j]}.zip"
+            unzip -q -o "./tmp-beta/beta_windows_${windows_archs[j]}/AdGuardHome_windows_${windows_archs[j]}.zip" -d "./tmp-beta/beta_windows_${windows_archs[j]}/"
             mv -f "./tmp-beta/beta_windows_${windows_archs[j]}/AdGuardHome/AdGuardHome.exe" "./AdGuardHome/AdGuardHome_beta_windows_${windows_archs[j]}.exe"
           done
           rm -rf ./tmp-beta*
 
-      - name: Setup `UPX` and compress `AdGuard Home Beta` files
+      - name: Setup `UPX` and compress `AdGuard Home` files
         if: ${{ env.AdGuard_Home_Release_skip_update != 'true' || env.AdGuard_Home_Beta_skip_update != 'true' }}
         uses: crazy-max/ghaction-upx@v4
         with:
