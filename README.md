@@ -1,4 +1,4 @@
-# 更新 [mihomo 内核](https://github.com/MetaCubeX/mihomo)、[sing-box 内核](https://github.com/SagerNet/sing-box)、[sing-box reF1nd 版内核和 Android 安装包](https://github.com/reF1nd/sing-box)、Dashboard 面板和 [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome)
+# 更新 [mihomo 内核](https://github.com/MetaCubeX/mihomo)、[sing-box 内核](https://github.com/SagerNet/sing-box)、[sing-box reF1nd 版内核](https://github.com/reF1nd/sing-box)、Dashboard 面板和 [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome)
 # 一、 说明
 每天凌晨（北京时间 UTC+8）自动构建生成：
 1. mihomo [Meta 版](https://github.com/MetaCubeX/mihomo/tree/Meta)和 [Alpha 版](https://github.com/MetaCubeX/mihomo/tree/Alpha)内核
