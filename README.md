@@ -137,5 +137,4 @@ curl -sS -o /data/AdGuardHome/AdGuardHome -L https://ghfast.top/https://github.c
 <img src="https://github.com/user-attachments/assets/470f501c-5a59-45d8-8e0f-6e034376f107" alt="微信" width="30%" />
 
 # 机场推荐
-[Bitz Net](https://new.bnaffloop.com/#/register?code=HT0ALWZq)（仅次于一线机场，推荐打折时购买）  
-85 折优惠码：`XMAS2025`（有效期至 2026 年 1 月 2 日 23:59）
+[Bitz Net](https://red.bnaffred.com/#/register?code=HT0ALWZq)（仅次于一线机场，推荐打折时购买）  
