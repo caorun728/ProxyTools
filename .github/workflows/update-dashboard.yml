@@ -25,12 +25,25 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "yacd_meta_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/releases/latest | jq -r '.tag_name')" >> ${GITHUB_ENV}
-          echo "yacd_meta_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> ${GITHUB_ENV}
-          echo "metacubexd_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/releases/latest | jq -r '.tag_name')" >> ${GITHUB_ENV}
-          echo "metacubexd_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> ${GITHUB_ENV}
-          echo "zashboard_version=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/releases/latest | jq -r '.tag_name')" >> ${GITHUB_ENV}
-          echo "zashboard_time=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/commits/gh-pages-cdn-fonts | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> ${GITHUB_ENV}
+          while true; do
+            yacd_meta_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/releases/latest | jq -r '.tag_name')
+            yacd_meta_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+            metacubexd_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/releases/latest | jq -r '.tag_name')
+            metacubexd_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+            zashboard_version=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/releases/latest | jq -r '.tag_name')
+            zashboard_time=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/commits/gh-pages-cdn-fonts | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+            if [[ -n "${yacd_meta_version}" && "${yacd_meta_version}" != "null" && -n "${metacubexd_version}" && "${metacubexd_version}" != "null" && -n "${zashboard_version}" && "${zashboard_version}" != "null" ]]; then
+              echo "yacd_meta_version=${yacd_meta_version}" >> ${GITHUB_ENV}
+              echo "yacd_meta_time=${yacd_meta_time}" >> ${GITHUB_ENV}
+              echo "metacubexd_version=${metacubexd_version}" >> ${GITHUB_ENV}
+              echo "metacubexd_time=${metacubexd_time}" >> ${GITHUB_ENV}
+              echo "zashboard_version=${zashboard_version}" >> ${GITHUB_ENV}
+              echo "zashboard_time=${zashboard_time}" >> ${GITHUB_ENV}
+              break
+            fi
+            echo "未获取到面板版本号，将在 10 秒后重试..."
+            sleep 10
+          done
         shell: bash
 
       - name: Compare `Dashboard` versions with current release
