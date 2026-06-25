@@ -2,7 +2,7 @@ name: Update Dashboard
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 17 * * *"
+    - cron: "00 18 * * *"
   push:
     branches:
       - main
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set variables
         run: |
@@ -32,13 +32,17 @@ jobs:
             metacubexd_time=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
             zashboard_version=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/releases/latest | jq -r '.tag_name')
             zashboard_time=$(curl -sSL https://api.github.com/repos/Zephyruso/zashboard/commits/gh-pages-cdn-fonts | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
-            if [[ -n "${yacd_meta_version}" && "${yacd_meta_version}" != "null" && -n "${metacubexd_version}" && "${metacubexd_version}" != "null" && -n "${zashboard_version}" && "${zashboard_version}" != "null" ]]; then
+            singbox_dashboard_version=$(curl -sSL https://api.github.com/repos/SagerNet/sing-box-dashboard/commits/gh-pages | jq -r '.sha[:7]')
+            singbox_dashboard_time=$(curl -sSL https://api.github.com/repos/SagerNet/sing-box-dashboard/commits/gh-pages | jq -r '.commit.committer.date' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')
+            if [[ -n "${yacd_meta_version}" && "${yacd_meta_version}" != "null" && -n "${metacubexd_version}" && "${metacubexd_version}" != "null" && -n "${zashboard_version}" && "${zashboard_version}" != "null" && -n "${singbox_dashboard_version}" && "${singbox_dashboard_version}" != "null" ]]; then
               echo "yacd_meta_version=${yacd_meta_version}" >> ${GITHUB_ENV}
               echo "yacd_meta_time=${yacd_meta_time}" >> ${GITHUB_ENV}
               echo "metacubexd_version=${metacubexd_version}" >> ${GITHUB_ENV}
               echo "metacubexd_time=${metacubexd_time}" >> ${GITHUB_ENV}
               echo "zashboard_version=${zashboard_version}" >> ${GITHUB_ENV}
               echo "zashboard_time=${zashboard_time}" >> ${GITHUB_ENV}
+              echo "singbox_dashboard_version=${singbox_dashboard_version}" >> ${GITHUB_ENV}
+              echo "singbox_dashboard_time=${singbox_dashboard_time}" >> ${GITHUB_ENV}
               break
             fi
             echo "未获取到面板版本号，将在 10 秒后重试..."
@@ -53,6 +57,7 @@ jobs:
             "Yacd-meta|${yacd_meta_version}|${yacd_meta_time}"
             "metacubexd|${metacubexd_version}|${metacubexd_time}"
             "zashboard|${zashboard_version}|${zashboard_time}"
+            "sing-box dashboard|${singbox_dashboard_version}|${singbox_dashboard_time}"
           )
           for arch in "${archs[@]}"; do
             IFS="|" read -r name version time <<< "$arch"
@@ -68,7 +73,7 @@ jobs:
             echo "${var_name}=${value}" >> ${GITHUB_ENV}
           done
 
-      - name: Download and compress `Yacd-meta` dashboard
+      - name: Download and compress `Yacd-meta`
         if: ${{ env.Yacd_meta_skip_release != 'true' }}
         run: |
           mkdir -p ./Dashboard/ ./tmp/Yacd-meta/
@@ -77,7 +82,7 @@ jobs:
           cd ./tmp/Yacd-meta/Yacd-meta-gh-pages/
           tar -czf ../../../Dashboard/Yacd-meta.tar.gz *
 
-      - name: Download and compress `metacubexd` dashboard
+      - name: Download and compress `metacubexd`
         if: ${{ env.metacubexd_skip_release != 'true' }}
         run: |
           mkdir -p ./Dashboard/ ./tmp/metacubexd/
@@ -86,7 +91,7 @@ jobs:
           cd ./tmp/metacubexd/metacubexd-gh-pages/
           tar -czf ../../../Dashboard/metacubexd.tar.gz *
 
-      - name: Download and compress `zashboard` dashboard
+      - name: Download and compress `zashboard`
         if: ${{ env.zashboard_skip_release != 'true' }}
         run: |
           mkdir -p ./Dashboard/ ./tmp/zashboard/
@@ -94,6 +99,15 @@ jobs:
           unzip -q -o ./tmp/zashboard/gh-pages.zip -d ./tmp/zashboard/
           cd ./tmp/zashboard/zashboard-gh-pages-cdn-fonts/
           tar -czf ../../../Dashboard/zashboard.tar.gz *
+
+      - name: Download and compress `sing-box dashboard`
+        if: ${{ env.sing_box_dashboard_skip_release != 'true' }}
+        run: |
+          mkdir -p ./Dashboard/ ./tmp/sing-box-dashboard/
+          curl -sS -o ./tmp/sing-box-dashboard/gh-pages.zip -L https://github.com/SagerNet/sing-box-dashboard/archive/gh-pages.zip
+          unzip -q -o ./tmp/sing-box-dashboard/gh-pages.zip -d ./tmp/sing-box-dashboard/
+          cd ./tmp/sing-box-dashboard/sing-box-dashboard-gh-pages/
+          tar -czf ../../../Dashboard/sing-box-dashboard.tar.gz *
 
       - name: Check if `Dashboard` files exist
         run: |
@@ -114,8 +128,9 @@ jobs:
           tag: Dashboard
           overwrite: true
           body: |
-            更新 [Yacd-meta 面板](https://github.com/MetaCubeX/Yacd-meta)至 ${{ env.yacd_meta_version }}，发布于 ${{ env.yacd_meta_time }}
-            更新 [metacubexd 面板](https://github.com/MetaCubeX/metacubexd)至 ${{ env.metacubexd_version }}，发布于 ${{ env.metacubexd_time }}
-            更新 [zashboard 面板](https://github.com/Zephyruso/zashboard)至 ${{ env.zashboard_version }}，发布于 ${{ env.zashboard_time }}
+            更新 [Yacd-meta](https://github.com/MetaCubeX/Yacd-meta)至 ${{ env.yacd_meta_version }}，发布于 ${{ env.yacd_meta_time }}
+            更新 [metacubexd](https://github.com/MetaCubeX/metacubexd)至 ${{ env.metacubexd_version }}，发布于 ${{ env.metacubexd_time }}
+            更新 [zashboard](https://github.com/Zephyruso/zashboard)至 ${{ env.zashboard_version }}，发布于 ${{ env.zashboard_time }}
+            更新 [sing-box dashboard](https://github.com/SagerNet/sing-box-dashboard)至 ${{ env.singbox_dashboard_version }}，发布于 ${{ env.singbox_dashboard_time }}
           file_glob: true
           file: ./Dashboard/*
